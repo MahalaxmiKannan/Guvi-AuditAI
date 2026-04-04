@@ -8,10 +8,9 @@ export default defineConfig(({mode}) => {
   return {
     plugins: [react(), tailwindcss()],
     define: {
-      // This maps the 'raw' env variable to the one your code expects
-      'process.env.VITE_GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
-      // OR if your code uses import.meta.env:
-      'import.meta.env.VITE_GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
+      // This ensures that even if the env var is named GEMINI_API_KEY on Render,
+      // your code can find it via VITE_GEMINI_API_KEY
+      'process.env.VITE_GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY || env.VITE_GEMINI_API_KEY),
     },
     resolve: {
       alias: {
